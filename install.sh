@@ -14,6 +14,7 @@ pip install pandas numpy nltk scikit-learn imbalanced-learn
 # Download nltk data
 python -c "import nltk; nltk.download('wordnet')"
 
+python -c "import nltk; nltk.download('omw-1.4')"
 
 # Deactivate the virtual environment
 deactivate
