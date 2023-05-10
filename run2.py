@@ -16,8 +16,8 @@ parser.add_argument('test_data', type=str, help='Path to test data CSV file')
 args = parser.parse_args()
 
 # Read the training and validation datasets
-train_path = 'TaskA-TrainingSet.csv'
-val_path = 'TaskA-TrainingSet.csv'
+train_path = '/workspaces/SSNdhanyadivyakavitha/TaskA-TrainingSet.csv'
+val_path = '/workspaces/SSNdhanyadivyakavitha/TaskA-TrainingSet.csv'
 
 train_df = pd.read_csv(train_path)
 val_df = pd.read_csv(val_path)
@@ -69,6 +69,7 @@ test_df['SystemOutput'] = le.inverse_transform(pipeline.predict(test_df['lemmati
 
 # Rename columns and drop the 'dialogue' column
 test_df = test_df.rename(columns={'ID': 'TestID', 'section_header': 'SystemOutput'})
+test_df = test_df.drop(columns=['dialogue'])
 test_df = test_df.drop(columns=['lemmatized_text'])
 
 # Save the output to a CSV file
