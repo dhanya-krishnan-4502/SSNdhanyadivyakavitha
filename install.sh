@@ -1,16 +1,19 @@
-#!/bin/bash
 
-# Create virtual environment
-python3 -m venv SSNdhanyadivyakavitha_taskA_venv
 
-# Activate virtual environment
-source SSNdhanyadivyakavitha_taskA_venv/bin/activate
+# create a new conda environment
+conda create -y --name SSNdhanyadivyakavitha_taskA_venv python=3.8
 
-# Install required packages
-pip install pandas numpy scikit-learn imbalanced-learn nltk
+# activate the environment
+source activate SSNdhanyadivyakavitha_taskA_venv
 
-# install specific versions of scikit-learn and joblib
-pip install -U scikit-learn==0.24.2 joblib==1.0.1
 
-# download NLTK data
-python -m nltk.downloader wordnet
+# Upgrade pip and install necessary packages
+pip install --upgrade pip
+pip install pandas numpy nltk scikit-learn imbalanced-learn
+
+# Download nltk data
+python -c "import nltk; nltk.download('wordnet')"
+
+
+# Deactivate the virtual environment
+deactivate
