@@ -1,7 +1,16 @@
 #!/bin/bash
 
-bash create --name SSNdhanyadivyakavitha_taskA_venv python=3.8
-bash activate SSNdhanyadivyakavitha_taskA_venv
-bash install pandas scikit-learn imbalanced-learn nltk
-bash deactivate
+# Create virtual environment
+python3 -m venv SSNdhanyadivyakavitha_taskA_venv
 
+# Activate virtual environment
+source SSNdhanyadivyakavitha_taskA_venv/bin/activate
+
+# Install required packages
+pip install pandas numpy scikit-learn imbalanced-learn nltk
+
+# install specific versions of scikit-learn and joblib
+pip install -U scikit-learn==0.24.2 joblib==1.0.1
+
+# download NLTK data
+python -m nltk.downloader wordnet
