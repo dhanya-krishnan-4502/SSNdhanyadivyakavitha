@@ -12,8 +12,8 @@ args = parser.parse_args()
 
 test_path = args.test_file
 
-train_path = '/workspaces/SSNdhanyadivyakavitha/TaskA-TrainingSet.csv'
-val_path = '/workspaces/SSNdhanyadivyakavitha/TaskA-ValidationSet.csv'
+train_path = 'TaskA-TrainingSet.csv'
+val_path = 'TaskA-ValidationSet.csv'
 
 train_df = pd.read_csv(train_path)
 val_df = pd.read_csv(val_path)
