@@ -72,4 +72,4 @@ test_df = test_df.rename(columns={'ID': 'TestID', 'section_header': 'SystemOutpu
 test_df = test_df.drop(columns=['lemmatized_text'])
 
 # Save the output to a CSV file
-test_df.to_csv('TaskA_predictions_run2.csv', index=False)
+test_df.to_csv('TaskA_SSNdhanyadivyakavitha_run2_mediqaSUM.csv', index=False)
