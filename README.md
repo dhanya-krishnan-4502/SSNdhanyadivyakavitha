@@ -8,7 +8,7 @@ chmod +x decode_taskA_run2.sh
 
 ./install.sh
 
-./activate.sh
+source activate SSNdhanyadivyakavitha_taskA_venv
 
 to execute run 1 :
 ./decode_taskA_run1.sh path/to/TaskA-TestSet.csv
