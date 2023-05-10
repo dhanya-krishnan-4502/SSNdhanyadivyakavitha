@@ -1,2 +1,2 @@
-#!/bin/bash
-source SSNdhanyadivyakavitha_taskA_venv/bin/activate
+!/bin/bash
+source activate SSNdhanyadivyakavitha_taskA_venv 
