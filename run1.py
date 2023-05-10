@@ -6,16 +6,29 @@ from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
 from imblearn.over_sampling import RandomOverSampler
 
+parser = argparse.ArgumentParser()
+parser.add_argument('test_file', help='Path to the test CSV file')
+args = parser.parse_args()
+
+test_path = args.test_file
+
+train_path = '/workspaces/SSNdhanyadivyakavitha/TaskA-TrainingSet.csv'
+val_path = '/workspaces/SSNdhanyadivyakavitha/TaskA-ValidationSet.csv'
+
+train_df = pd.read_csv(train_path)
+val_df = pd.read_csv(val_path)
+test_df = pd.read_csv(test_path)
+
 import string
 import re
 import nltk
 from nltk.corpus import stopwords
 
 nltk.download('stopwords')
+
 stop_words = stopwords.words('english')
 
 def preprocess_text(text):
-    # Remove punctuation
     text = text.translate(str.maketrans('', '', string.punctuation))
     # Remove digits
     text = re.sub(r'\d+', '', text)
@@ -25,26 +38,31 @@ def preprocess_text(text):
     text = ' '.join([word for word in text.split() if word not in stop_words])
     return text
 
-def main(test_file):
-    val_df = pd.read_csv(test_file)
-    val_df['dialogue'] = val_df['dialogue'].apply(preprocess_text)
+train_df['dialogue'] = train_df['dialogue'].apply(preprocess_text)
+val_df['dialogue'] = val_df['dialogue'].apply(preprocess_text)
+test_df['dialogue'] = test_df['dialogue'].apply(preprocess_text)
 
-    tfidf = TfidfVectorizer(max_features=10000)
+tfidf = TfidfVectorizer(max_features=10000)
 
-    X_val = tfidf.transform(val_df['dialogue']).toarray()
-    y_val = val_df['section_header']
+X_train = tfidf.fit_transform(train_df['dialogue']).toarray()
+y_train = train_df['section_header']
 
-    svc_model = Pipeline([('svc', LinearSVC())])
-    svc_model.fit(X_train_resampled, y_train_resampled)
-    y_pred = svc_model.predict(X_val)
+X_val = tfidf.transform(val_df['dialogue']).toarray()
+y_val = val_df['section_header']
 
-    # Write the output to a CSV file
-    output_df = pd.DataFrame({'section_header': y_pred})
-    output_df.to_csv('output.csv', index=False)
+X_test = tfidf.transform(test_df['dialogue']).toarray()
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('test_file', help='Path to the test CSV file')
-    args = parser.parse_args()
+ros = RandomOverSampler()
+X_train_resampled, y_train_resampled = ros.fit_resample(X_train, y_train)
 
-    main(args.test_file)
+svc_model = Pipeline([('svc', LinearSVC())])
+svc_model.fit(X_train_resampled, y_train_resampled)
+
+y_pred = svc_model.predict(X_test)
+
+output_path = 'TaskA_predictions.csv'
+test_df['SystemOutput'] = y_pred
+test_df = test_df.rename(columns={'id':'TestID', 'SystemOutput':'section_header'}).drop(['dialogue'], axis=1)
+test_df.to_csv(output_path, index=False)
+
+print("Predictions saved to", output_path)
