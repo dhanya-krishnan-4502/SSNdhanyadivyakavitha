@@ -60,7 +60,7 @@ svc_model.fit(X_train_resampled, y_train_resampled)
 
 y_pred = svc_model.predict(X_test)
 
-output_path = 'TaskA_predictions.csv'
+output_path = 'TaskA_predictions_run1.csv'
 test_df['SystemOutput'] = y_pred
 test_df = test_df.rename(columns={'id':'TestID', 'SystemOutput':'section_header'}).drop(['dialogue'], axis=1)
 test_df.to_csv(output_path, index=False)
