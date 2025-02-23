@@ -6,7 +6,7 @@
 ## **Overview**
 This project was developed as part of the **ImageCLEFmed MEDIQA-Sum 2023** competition, which aims at **medical dialogue summarization**. The focus of this research is to categorize and summarize **doctor-patient conversations** into relevant **section headers** using **machine learning techniques**. 
 
-We implemented multiple models, including:
+We implemented multiple models, including
 - **Linear Support Vector Classification (SVC)** with TF-IDF for **text classification**.
 - **Classification and Regression Trees (CART) with Logistic Regression**.
 - **Convolutional Neural Networks (CNNs)** for deeper analysis.
